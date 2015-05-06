@@ -21,11 +21,11 @@ RUN yum clean all
 # Create a static file serve folder
 RUN mkdir /var/www
 
-# Open port 9000 for app, 35729 for livereload, and 22 for SSH
-EXPOSE 9000 35729 22
-
 # Execute the commands in the file serve folder
 WORKDIR /var/www
+
+# Open port 9000 for app, 35729 for livereload, and 22 for SSH
+EXPOSE 9000 35729 22
 
 # Expose our web root and log directories log.
 VOLUME ["/vagrant", "/var/www", "/var/log", "/var/run"]
