@@ -6,6 +6,9 @@ MAINTAINER Aaron Stone <aaronastone@gmail.com>
 RUN yum -y install \
   epel-release
 
+# Install the development tools to be able to compile through grunt
+RUN yum -y groupinstall "Development tools"
+
 # Install core RPMs
 RUN yum -y install \
   tar \
@@ -16,9 +19,6 @@ RUN yum -y install \
   nodejs \
   npm \
   ruby
-
-# Install the development tools to be able to compile through grunt
-RUN yum -y groupinstall "Development tools"
 
 # Install required libs
 RUN yum -y install \
