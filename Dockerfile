@@ -51,3 +51,6 @@ EXPOSE 9000 35729 22
 
 # Expose our web root and log directories log.
 VOLUME ["/vagrant", "/var/www", "/var/log", "/var/run"]
+
+COPY ./config/build-serve.sh /
+ENTRYPOINT ["/build-serve.sh"]
