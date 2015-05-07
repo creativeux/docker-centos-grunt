@@ -1,18 +1,31 @@
- FROM creativeux/centos:7.0.1406
+FROM creativeux/centos-base:7.0.1406
 
 MAINTAINER Aaron Stone <aaronastone@gmail.com>
 
 # Install the EPEL repository
 RUN yum -y install \
-  epel-release
+  epel-release \
+  tar \
+  bzip2 \
+  make \
+  gcc
 
-# Install nodejs and npm
+# Install the base node & npm modules
 RUN yum -y install \
   nodejs \
   npm
 
-# Install grunt and bower to run the webapp builds and development serving
-RUN npm install -g -y grunt-cli \
+# Upgrade node to 0.12.0
+RUN npm cache clean -f
+RUN npm install -g n
+RUN n 0.12.0
+
+# Upgrade npm to latest
+RUN npm install -g npm@latest
+
+# Install Grunt and Bower
+RUN npm install -g \
+  grunt-cli \
   bower
 
 # Clean yum
