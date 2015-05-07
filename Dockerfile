@@ -4,16 +4,25 @@ MAINTAINER Aaron Stone <aaronastone@gmail.com>
 
 # Install the EPEL repository
 RUN yum -y install \
-  epel-release \
-  tar \
-  bzip2 \
-  make \
-  gcc
+  epel-release
 
-# Install the base node & npm modules
+# Install core RPMs
+RUN yum -y install \
+  tar \
+  bzip2
+
+# Install node, npm, and ruby
 RUN yum -y install \
   nodejs \
-  npm
+  npm \
+  ruby
+
+# Install the development tools to be able to compile through grunt
+RUN yum -y groupinstall "Development tools"
+
+# Install required libs
+RUN yum -y install \
+  libpng-devel
 
 # Upgrade node to 0.12.0
 RUN npm cache clean -f
