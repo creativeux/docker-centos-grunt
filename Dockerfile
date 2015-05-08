@@ -6,39 +6,44 @@ MAINTAINER Aaron Stone <aaronastone@gmail.com>
 RUN yum -y install \
   epel-release
 
-# Install the development tools to be able to compile through grunt
-RUN yum -y groupinstall "Development tools"
-
 # Install core RPMs
 RUN yum -y install \
   tar \
   bzip2
 
-# Install node, npm, and ruby
+# Install required developer tools
+RUN yum -y install \
+  make \
+  gcc
+
+# Install node & npm and upgrade to desired versions.
 RUN yum -y install \
   nodejs \
-  npm \
-  ruby
+  npm && \
+  npm install -g n && \
+  n 0.12.0 && \
+  npm install -g npm@2.9.0
+
+# Install ruby
+RUN yum -y install ruby \
+  ruby-devel \
+  rubygems
+
+# Install compass
+RUN gem install compass
 
 # Install required libs
 RUN yum -y install \
   libpng-devel
-
-# Upgrade node to 0.12.0
-RUN npm cache clean -f
-RUN npm install -g n
-RUN n 0.12.0
-
-# Upgrade npm to latest
-RUN npm install -g npm@latest
 
 # Install Grunt and Bower
 RUN npm install -g \
   grunt-cli \
   bower
 
-# Clean yum
-RUN yum clean all
+# Clean up
+RUN yum clean all && \
+  npm cache clean -f
 
 # Create a static file serve folder
 RUN mkdir /var/www
