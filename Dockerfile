@@ -14,7 +14,8 @@ RUN yum -y install \
 # Install required developer tools
 RUN yum -y install \
   make \
-  gcc
+  gcc \
+  git
 
 # Install node & npm and upgrade to desired versions.
 RUN yum -y install \
